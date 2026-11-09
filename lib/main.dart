@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/features/auth/signin/signin_screen.dart';
+import 'package:grad_project/features/onboarding/onboarding_screen.dart';
 import 'package:grad_project/features/splash/splash_screen.dart';
 
 void main() {
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         routes: {
           AppRoutes.splash: (_) => SplashScreen(),
           AppRoutes.login: (_) => SigninScreen(),
+          AppRoutes.onboarding: (_) => OnboardingScreen(),
         },
       ),
     );
