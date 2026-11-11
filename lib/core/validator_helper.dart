@@ -47,4 +47,23 @@ class ValidatorHelper {
 
     return null;
   }
+
+  static String? validateNewPassword(String? text, String currentPassword) {
+    final v = text ?? '';
+    if (v.isEmpty) return ' Password is required';
+    if (v.length < 8) return "At least 8 characters";
+    if (!RegExp(r'[A-Z]').hasMatch(v)) {
+      return 'Add an uppercase letter';
+    }
+    if (!RegExp(r'[a-z]').hasMatch(v)) {
+      return 'Add a lowercase letter';
+    }
+    if (!RegExp(r'\d').hasMatch(v)) {
+      return 'Add a digit';
+    }
+    if (v == currentPassword) {
+      return 'Must differ from the current password';
+    }
+    return null;
+  }
 }
