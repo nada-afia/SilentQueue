@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grad_project/core/app_colors.dart';
 import 'package:grad_project/core/app_routes.dart';
-import 'package:grad_project/core/app_styles.dart';
+import 'package:grad_project/core/style/app_colors.dart';
+import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/validator_helper.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
