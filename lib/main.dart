@@ -1,8 +1,22 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grad_project/features/home/home_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grad_project/core/app_routes.dart';
+import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
+import 'package:grad_project/features/auth/signin/signin_screen.dart';
+import 'package:grad_project/features/auth/signup/signup_screen.dart';
+import 'package:grad_project/features/home/home_screen.dart';
+import 'package:grad_project/features/onboarding/onboarding_screen.dart';
+import 'package:grad_project/features/splash/splash_screen.dart';
+import 'package:grad_project/firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,9 +24,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HomeScreen(),
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: AppRoutes.splash,
+        routes: {
+          AppRoutes.splash: (_) => SplashScreen(),
+          AppRoutes.login: (context) => BlocProvider(
+            create: (context) => SigninCubit(),
+            child: SigninScreen(),
+          ),
+          AppRoutes.signUp: (_) => SignupScreen(),
+          AppRoutes.onboarding: (_) => OnboardingScreen(),
+          AppRoutes.home: (context) => HomeScreen(),
+        },
+      ),
     );
   }
 }
