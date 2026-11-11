@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grad_project/core/app_colors.dart';
+import 'package:grad_project/core/style/app_colors.dart';
 
 class AppStyles {
   static const blackBold28 = TextStyle(
@@ -67,4 +67,5 @@ class AppStyles {
     fontSize: 12,
     fontWeight: .w500,
   );
+
 }
