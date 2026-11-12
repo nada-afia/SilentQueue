@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
 import 'package:grad_project/features/auth/signin/signin_screen.dart';
+import 'package:grad_project/features/auth/signup/cubit/signup_cubit.dart';
 import 'package:grad_project/features/auth/signup/signup_screen.dart';
 import 'package:grad_project/features/home/home_screen.dart';
 import 'package:grad_project/features/onboarding/onboarding_screen.dart';
@@ -36,7 +37,10 @@ class MyApp extends StatelessWidget {
             create: (context) => SigninCubit(),
             child: SigninScreen(),
           ),
-          AppRoutes.signUp: (_) => SignupScreen(),
+          AppRoutes.signUp: (_) => BlocProvider(
+            create: (context) => SignupCubit(),
+            child: SignupScreen(),
+          ),
           AppRoutes.onboarding: (_) => OnboardingScreen(),
           AppRoutes.home: (context) => HomeScreen(),
         },

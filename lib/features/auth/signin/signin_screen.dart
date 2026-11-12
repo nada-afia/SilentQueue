@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_colors.dart';
 import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/app_styles.dart';
+import 'package:grad_project/core/dialog_helper.dart';
 import 'package:grad_project/core/validator_helper.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
@@ -35,101 +36,95 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<SigninCubit, SignInStates>(
-      listener: (context, state) {
-        if (state is SignInSuccessState) {
-          Navigator.pushNamed(context, AppRoutes.home);
-        } else if (state is SignInErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.errorMessage),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
-      child: Scaffold(
-        backgroundColor: AppColors.backgroundColor,
-        body: SafeArea(
-          child: SingleChildScrollView(
-            child: Padding(
-              padding: EdgeInsets.all(16.w),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(height: 56.h),
+    return Scaffold(
+      backgroundColor: AppColors.backgroundColor,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.w),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 56.h),
 
-                    SecurityBadge(),
+                  SecurityBadge(),
 
-                    Text('Welcome Back', style: AppStyles.blackBold28),
+                  Text('Welcome Back', style: AppStyles.blackBold28),
 
-                    Text(
-                      'Log in to manage appointments and live queue tickets',
-                      style: AppStyles.grayReg14,
+                  Text(
+                    'Log in to manage appointments and live queue tickets',
+                    style: AppStyles.grayReg14,
+                  ),
+
+                  SizedBox(height: 24.h),
+
+                  CustomTextFormField(
+                    validator: ValidatorHelper.validateEmail,
+                    controller: emailController,
+                    lable: 'Email Address or Phone Number',
+                    placeHolder: 'name@example.com',
+                    prefixIcon: Icon(
+                      Icons.email_outlined,
+                      color: AppColors.blackColor,
                     ),
+                  ),
 
-                    SizedBox(height: 24.h),
+                  SizedBox(height: 16.h),
 
-                    CustomTextFormField(
-                      validator: ValidatorHelper.validateEmail,
-                      controller: emailController,
-                      lable: 'Email Address or Phone Number',
-                      placeHolder: 'name@example.com',
-                      prefixIcon: Icon(
-                        Icons.email_outlined,
-                        color: AppColors.blackColor,
-                      ),
+                  CustomTextFormField(
+                    controller: passwordController,
+                    validator: ValidatorHelper.validatePassword,
+                    lable: 'Password',
+                    placeHolder: 'clinicCare#2024',
+                    prefixIcon: Icon(
+                      Icons.lock_outline,
+                      color: AppColors.blackColor,
                     ),
+                    isPassword: true,
+                  ),
 
-                    SizedBox(height: 16.h),
-
-                    CustomTextFormField(
-                      controller: passwordController,
-                      validator: ValidatorHelper.validatePassword,
-                      lable: 'Password',
-                      placeHolder: 'clinicCare#2024',
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: AppColors.blackColor,
-                      ),
-                      isPassword: true,
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomTextButton(
+                      title: 'Forgot Password?',
+                      onPressed: () {},
                     ),
+                  ),
 
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: CustomTextButton(
-                        title: 'Forgot Password?',
-                        onPressed: () {},
-                      ),
-                    ),
-
-                    SizedBox(height: 24.h),
-
-                    CustomElevatedButton(
+                  SizedBox(height: 24.h),
+                  BlocListener<SigninCubit, SignInStates>(
+                    listener: (context, state) {
+                      if (state is SignInSuccessState) {
+                        Navigator.pushNamed(context, AppRoutes.home);
+                      }
+                      if (state is SignInErrorState) {
+                        DialogHelper.showError(context, state.errorMessage);
+                      }
+                    },
+                    child: CustomElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<SigninCubit>().signIn(
+                            emailController.text,
+                            passwordController.text,
+                          );
+                        }
+                      },
                       title: 'Log In',
-                      onPressed: () {
-                        if (!_formKey.currentState!.validate()) return;
-
-                        context.read<SigninCubit>().signIn(
-                          emailController.text,
-                          passwordController.text,
-                        );
-                      },
                     ),
+                  ),
+                  SizedBox(height: 24.h),
 
-                    SizedBox(height: 24.h),
-
-                    CustomBuildFooter(
-                      onPressed: () {
-                        Navigator.pushNamed(context, AppRoutes.signUp);
-                      },
-                      title: 'Sign Up',
-                      message: "Don't have an account?",
-                    ),
-                  ],
-                ),
+                  CustomBuildFooter(
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.signUp);
+                    },
+                    title: 'Sign Up',
+                    message: "Don't have an account?",
+                  ),
+                ],
               ),
             ),
           ),

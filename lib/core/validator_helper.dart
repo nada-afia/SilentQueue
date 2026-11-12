@@ -66,4 +66,11 @@ class ValidatorHelper {
     }
     return null;
   }
+
+  static String? validateConfirmPassword(String? text, String password) {
+    final v = text ?? '';
+    if (v.isEmpty) return 'Confirm Password Required';
+    if (v != password) return 'Passwords do not match';
+    return null;
+  }
 }
