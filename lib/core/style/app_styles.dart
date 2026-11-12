@@ -67,5 +67,10 @@ class AppStyles {
     fontSize: 12,
     fontWeight: .w500,
   );
+  static const redReg12 = TextStyle(
+    color: AppColors.redColor,
+    fontSize: 12,
+    fontWeight: .w500,
+  );
 
 }
