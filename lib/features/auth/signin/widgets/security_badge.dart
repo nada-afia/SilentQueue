@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:grad_project/core/app_colors.dart';
-import 'package:grad_project/core/app_styles.dart';
+import 'package:grad_project/core/style/app_colors.dart';
+import 'package:grad_project/core/style/app_styles.dart';
 
 class SecurityBadge extends StatelessWidget {
   const SecurityBadge({super.key});

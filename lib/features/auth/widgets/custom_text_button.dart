@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grad_project/core/app_styles.dart';
+import 'package:grad_project/core/style/app_styles.dart';
 
 class CustomTextButton extends StatelessWidget {
   final VoidCallback onPressed;
