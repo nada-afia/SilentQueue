@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:grad_project/features/appointments/appointments_screen.dart';
+import 'package:grad_project/features/profile/profile_screen.dart';
 import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 
 void main() {
@@ -12,8 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: 'queueDetails',
-      routes: {'queueDetails': (context) => QueueDetailsScreen()},
+      initialRoute: 'profile',
+      routes: {
+        'queueDetails': (context) => QueueDetailsScreen(),
+        'appointments': (context) => AppointmentsScreen(),
+        'profile': (context) => ProfileScreen(),
+      },
     );
   }
 }

@@ -62,6 +62,16 @@ class AppStyles {
     fontSize: 14,
     fontWeight: FontWeight.w400,
   );
+  static const TextStyle brown11SemiBold = TextStyle(
+    color: AppColors.brownColor,
+    fontSize: 11,
+    fontWeight: FontWeight.w600,
+  );
+  static const TextStyle red14Medium = TextStyle(
+    color: AppColors.redColor,
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
   static const TextStyle blackBold12 = TextStyle(
     color: AppColors.blackColor,
     fontSize: 12,
