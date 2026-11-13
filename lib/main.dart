@@ -1,5 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:grad_project/features/appointments/appointments_screen.dart';
+import 'package:grad_project/features/profile/profile_screen.dart';
+import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 import 'package:grad_project/features/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -44,9 +47,11 @@ class MyApp extends StatelessWidget {
           ),
           AppRoutes.onboarding: (_) => OnboardingScreen(),
           AppRoutes.home: (context) => HomeScreen(),
+          AppRoutes.queueDetails: (context) => QueueDetailsScreen(),
+          AppRoutes.appointments: (context) => AppointmentsScreen(),
+          AppRoutes.profile: (context) => ProfileScreen(),
         },
       ),
     );
   }
 }
-
