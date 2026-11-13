@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class QrScan extends StatelessWidget {
   const QrScan({super.key});
@@ -11,7 +12,12 @@ class QrScan extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Icon(Icons.qr_code_2, size: 200),
+      child: QrImageView(
+        data: 'TICKET-1042',
+        version: QrVersions.auto,
+        size: 200,
+        backgroundColor: Colors.white,
+      ),
     );
   }
 }
