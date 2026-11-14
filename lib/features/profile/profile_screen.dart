@@ -7,6 +7,7 @@ import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/profile/cubit/profile_cubit.dart';
 import 'package:grad_project/features/profile/cubit/states.dart';
 import 'package:grad_project/features/profile/widgets/profile_option.dart';
+import 'package:grad_project/features/profile/widgets/signout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
