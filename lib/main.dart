@@ -1,9 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:grad_project/features/appointments/appointments_screen.dart';
-import 'package:grad_project/features/profile/profile_screen.dart';
-import 'package:grad_project/features/queue_details/queue_details_screen.dart';
-import 'package:grad_project/features/home/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
@@ -12,13 +8,13 @@ import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
 import 'package:grad_project/features/auth/signin/signin_screen.dart';
 import 'package:grad_project/features/auth/signup/cubit/signup_cubit.dart';
 import 'package:grad_project/features/auth/signup/signup_screen.dart';
-import 'package:grad_project/features/home/home_screen.dart';
 import 'package:grad_project/features/onboarding/onboarding_screen.dart';
-import 'package:grad_project/features/profile/cubit/profile_cubit.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
 import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 import 'package:grad_project/features/splash/splash_screen.dart';
 import 'package:grad_project/firebase_options.dart';
+
+import 'features/home/home_navigation.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

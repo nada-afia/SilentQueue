@@ -5,6 +5,7 @@ import 'package:grad_project/features/auth/models/user_model.dart';
 class FirebaseDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   Future<void> signUp(String email, String password, String name) async {
     try {
       UserCredential userCredential = await _auth
@@ -58,6 +59,38 @@ class FirebaseDataSource {
       await _auth.signOut();
     } on FirebaseAuthException catch (e) {
       throw Exception('Sign out failed: ${e.message ?? e.code}');
+    }
+  }
+
+  Future<UserModel?> getUserData() async {
+    try {
+      String uid = _auth.currentUser!.uid;
+      DocumentSnapshot doc = await _firestore
+          .collection('users')
+          .doc(uid)
+          .get();
+
+      if (doc.exists) {
+        return UserModel.fromJson(doc.data() as Map<String, dynamic>);
+      }
+      return null;
+    } catch (e) {
+      throw Exception('Failed to fetch user data: $e');
+    }
+  }
+
+  Future<void> updateUserData({
+    required String name,
+    required String email,
+  }) async {
+    try {
+      String uid = _auth.currentUser!.uid;
+      await _firestore.collection('users').doc(uid).update({
+        'fullName': name,
+        'email': email,
+      });
+    } catch (e) {
+      throw Exception('Failed to update user data: $e');
     }
   }
 }
