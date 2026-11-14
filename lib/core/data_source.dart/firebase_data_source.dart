@@ -20,8 +20,17 @@ class FirebaseDataSource {
               password: password,
             ).toJson(),
           );
-    } catch (e) {
-      print('Failed to sign up: $e');
+    } on FirebaseAuthException catch (e) {
+      switch (e.code) {
+        case 'email-already-in-use':
+          throw Exception('This email is already registered');
+        case 'weak-password':
+          throw Exception('Password is too weak');
+        case 'invalid-email':
+          throw Exception('Invalid email format');
+        default:
+          throw Exception('Sign up failed, please try again');
+      }
     }
   }
 
@@ -41,6 +50,14 @@ class FirebaseDataSource {
         default:
           throw Exception('Login failed, please try again');
       }
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw Exception('Sign out failed: ${e.message ?? e.code}');
     }
   }
 }
