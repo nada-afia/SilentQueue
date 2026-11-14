@@ -22,17 +22,20 @@ class ProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: onTap,
-      leading: Icon(leading, color: AppColors.darkGreenColor),
-      title: Text(title, style: AppStyles.blackReg12.copyWith(fontSize: 15)),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(trailingText ?? "", style: AppStyles.gray14Reg),
-          SizedBox(width: 4),
-          Icon(trailing, size: trailingSize, color: AppColors.darkGreenColor),
-        ],
+    return Material(
+      color: Colors.transparent,
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(leading, color: AppColors.darkGreenColor),
+        title: Text(title, style: AppStyles.blackReg12.copyWith(fontSize: 15)),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(trailingText ?? "", style: AppStyles.gray14Reg),
+            SizedBox(width: 4),
+            Icon(trailing, size: trailingSize, color: AppColors.darkGreenColor),
+          ],
+        ),
       ),
     );
   }

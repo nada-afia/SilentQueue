@@ -94,7 +94,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     backgroundImage: state.imageFile != null
                                         ? FileImage(state.imageFile!)
                                               as ImageProvider
-                                        : AssetImage(state.profileImageUrl),
+                                        : NetworkImage(state.profileImageUrl),
                                   ),
                                 ),
                                 if (state.isEditing)
@@ -184,7 +184,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Divider(),
                         ProfileOption(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.privacy);
+                          },
                           leading: Icons.security,
                           trailing: Icons.arrow_forward_ios,
                           trailingSize: 15,
@@ -192,7 +194,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         Divider(),
                         ProfileOption(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, AppRoutes.support);
+                          },
                           leading: Icons.help_outline,
                           trailing: Icons.arrow_forward_ios,
                           trailingSize: 15,

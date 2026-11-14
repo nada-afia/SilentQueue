@@ -7,4 +7,6 @@ class AppRoutes {
   static const String queueDetails = '/queueDetails';
   static const String appointments = '/appointments';
   static const String profile = '/profile';
+  static const String privacy = '/privacy';
+  static const String support = '/support';
 }
