@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/features/profile/cubit/profile_cubit.dart';
+import 'package:grad_project/features/profile/cubit/states.dart';
 import 'package:grad_project/features/profile/widgets/profile_option.dart';
+import 'package:grad_project/features/profile/widgets/signout_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -81,23 +86,6 @@ class ProfileScreen extends StatelessWidget {
                         Divider(),
                         ProfileOption(
                           onTap: () {},
-                          leading: Icons.notifications_none,
-                          trailing: Icons.toggle_on,
-                          trailingSize: 40,
-                          title: "Notifications",
-                        ),
-                        Divider(),
-                        ProfileOption(
-                          onTap: () {},
-                          leading: CupertinoIcons.globe,
-                          trailing: Icons.arrow_forward_ios,
-                          trailingSize: 15,
-                          trailingText: "English",
-                          title: "Language",
-                        ),
-                        Divider(),
-                        ProfileOption(
-                          onTap: () {},
                           leading: Icons.security,
                           trailing: Icons.arrow_forward_ios,
                           trailingSize: 15,
@@ -115,19 +103,26 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 60),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.exit_to_app,
-                          color: AppColors.redColor,
-                        ),
-                      ),
-                      SizedBox(width: 2),
-                      Text("Sign Out", style: AppStyles.red14Medium),
-                    ],
+                  BlocConsumer<ProfileCubit, ProfileStates>(
+                    listener: (context, state) {
+                      if (state is ProfileSuccessState) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          AppRoutes.login,
+                          (route) => false,
+                        );
+                      } else if (state is ProfileErrorState) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(state.errorMessage)),
+                        );
+                      }
+                    },
+                    builder: (context, state) {
+                      return SignoutButton(
+                        isLoading: state is ProfileLoadingState,
+                        onPressed: () => context.read<ProfileCubit>().signOut(),
+                      );
+                    },
                   ),
                 ],
               ),
