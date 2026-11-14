@@ -9,10 +9,12 @@ import 'package:grad_project/features/auth/signin/signin_screen.dart';
 import 'package:grad_project/features/auth/signup/cubit/signup_cubit.dart';
 import 'package:grad_project/features/auth/signup/signup_screen.dart';
 import 'package:grad_project/features/onboarding/onboarding_screen.dart';
+import 'package:grad_project/features/privacy/privacy_screen.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
 import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 import 'package:grad_project/features/splash/splash_screen.dart';
 import 'package:grad_project/firebase_options.dart';
+import 'package:grad_project/support/support_screen.dart';
 
 import 'features/home/home_navigation.dart';
 
@@ -50,6 +52,8 @@ class MyApp extends StatelessWidget {
           AppRoutes.queueDetails: (context) => QueueDetailsScreen(),
           AppRoutes.appointments: (context) => AppointmentsScreen(),
           AppRoutes.profile: (context) => ProfileScreen(),
+          AppRoutes.privacy: (context) => PrivacyScreen(),
+          AppRoutes.support: (context) => SupportScreen(),
         },
       ),
     );
