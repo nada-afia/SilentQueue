@@ -3,9 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/features/home/models/doctor_model.dart';
 
 class DoctorProfileCard extends StatelessWidget {
-  const DoctorProfileCard({super.key});
+  final DoctorModel doctor;
+
+  const DoctorProfileCard({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -20,15 +23,12 @@ class DoctorProfileCard extends StatelessWidget {
           Container(
             width: 75.w,
             height: 75.w,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: AppColors.lightGreenColor,
+              color: AppColors.primaryColor,
               borderRadius: BorderRadius.circular(12.r),
             ),
-            child: Icon(
-              Icons.person,
-              size: 40.sp,
-              color: AppColors.primaryColor,
-            ),
+            child: Text(doctor.initials, style: AppStyles.white24SemiBold),
           ),
 
           SizedBox(width: 12.w),
@@ -38,7 +38,7 @@ class DoctorProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Dr. Sarah Mitchell',
+                  doctor.name,
                   style: AppStyles.blackBold16,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -46,7 +46,7 @@ class DoctorProfileCard extends StatelessWidget {
 
                 SizedBox(height: 4.h),
 
-                Text('Cardiologist', style: AppStyles.primaryReg12),
+                Text(doctor.specialty, style: AppStyles.primaryReg12),
 
                 SizedBox(height: 6.h),
 
@@ -56,7 +56,7 @@ class DoctorProfileCard extends StatelessWidget {
                     SizedBox(width: 4.w),
                     Expanded(
                       child: Text(
-                        '4.8 (234 reviews)',
+                        '${doctor.rating} (${doctor.reviewsCount} reviews)',
                         style: AppStyles.gray11Medium,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -68,7 +68,7 @@ class DoctorProfileCard extends StatelessWidget {
                 SizedBox(height: 4.h),
 
                 Text(
-                  'City Heart Center',
+                  doctor.clinic,
                   style: AppStyles.gray11Medium,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,

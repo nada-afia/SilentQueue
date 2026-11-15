@@ -1,32 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
 class AvailableTime extends StatelessWidget {
+  final List<String> times;
   final String selectedTime;
   final Function(String) onTimeSelected;
 
   const AvailableTime({
     super.key,
+    required this.times,
     required this.selectedTime,
     required this.onTimeSelected,
   });
 
   @override
   Widget build(BuildContext context) {
-    final times = [
-      '09:00 AM',
-      '09:30 AM',
-      '10:00 AM',
-      '10:30 AM',
-      '11:00 AM',
-      '11:30 AM',
-      '02:00 PM',
-      '02:30 PM',
-    ];
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
