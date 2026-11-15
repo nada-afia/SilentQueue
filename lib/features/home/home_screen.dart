@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_project/core/style/app_colors.dart';
-import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/home/section_header.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';

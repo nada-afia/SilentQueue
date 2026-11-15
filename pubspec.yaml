@@ -41,6 +41,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   qr_flutter: ^4.1.0
   image_picker: ^1.2.4
+  flutter_slidable: ^5.2.0
 
 
 dev_dependencies:

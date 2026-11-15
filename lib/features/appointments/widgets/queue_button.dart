@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
 class QueueButton extends StatelessWidget {
@@ -24,14 +25,14 @@ class QueueButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: background,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusGeometry.circular(8),
+          borderRadius: BorderRadiusGeometry.circular(8.r),
         ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(icon, color: foreground),
-          SizedBox(width: 4),
+          SizedBox(width: 4.w),
           Text(
             title,
             style: AppStyles.whiteSemiBold14.copyWith(color: foreground),

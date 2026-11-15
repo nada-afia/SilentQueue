@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/appointments/widgets/queue_button.dart';
@@ -9,25 +10,25 @@ class ActiveAppointmentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 16),
+      margin: EdgeInsets.symmetric(vertical: 16.h),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
+            blurRadius: 10.r,
             offset: const Offset(0, 4),
           ),
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         child: Column(
           children: [
-            Container(height: 8, color: AppColors.primaryColor),
+            Container(height: 8.h, color: AppColors.primaryColor),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(8.w),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -38,23 +39,23 @@ class ActiveAppointmentCard extends StatelessWidget {
                         color: AppColors.primaryColor,
                         size: 20,
                       ),
-                      SizedBox(width: 4),
+                      SizedBox(width: 4.w),
                       Text(
                         "Metro Health Center",
                         style: AppStyles.black13SemiBold,
                       ),
                       Spacer(),
                       Container(
-                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 8.w),
                         decoration: BoxDecoration(
                           color: AppColors.placeholderColor,
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(15.r),
                         ),
                         child: Text(
                           "#A-24",
                           style: TextStyle(
                             color: AppColors.darkGreenColor,
-                            fontSize: 12,
+                            fontSize: 12.sp,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -63,18 +64,18 @@ class ActiveAppointmentCard extends StatelessWidget {
                   ),
                   Text(
                     "Dr. Emily Watson",
-                    style: AppStyles.black18SemiBold.copyWith(fontSize: 20),
+                    style: AppStyles.black18SemiBold.copyWith(fontSize: 20.sp),
                   ),
                   Text(
                     "Cardiology Consultation • Room 204",
                     style: AppStyles.blackReg12,
                   ),
                   Container(
-                    padding: EdgeInsets.all(16),
-                    margin: EdgeInsets.symmetric(vertical: 16),
+                    padding: EdgeInsets.all(16.w),
+                    margin: EdgeInsets.symmetric(vertical: 16.h),
                     decoration: BoxDecoration(
                       color: AppColors.placeholderColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10.r),
                     ),
                     child: Row(
                       children: [
@@ -82,7 +83,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                           Icons.calendar_today_outlined,
                           color: AppColors.primaryColor,
                         ),
-                        SizedBox(width: 8),
+                        SizedBox(width: 8.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -100,9 +101,9 @@ class ActiveAppointmentCard extends StatelessWidget {
                         ),
                         Spacer(),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                            borderRadius: BorderRadius.circular(30.r),
                             color: AppColors.pinkColor,
                           ),
                           child: Text(
@@ -119,7 +120,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                         Icons.notifications_active_outlined,
                         color: AppColors.blueColor,
                       ),
-                      SizedBox(width: 8),
+                      SizedBox(width: 8.w),
                       Text(
                         "We'll alert your phone with a soft buzz 5 mins"
                         "\nbefore your turn.",
@@ -127,7 +128,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 16.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

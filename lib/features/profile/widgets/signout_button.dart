@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
@@ -17,9 +18,9 @@ class SignoutButton extends StatelessWidget {
     return TextButton.icon(
       onPressed: isLoading ? null : onPressed,
       icon: isLoading
-          ? const SizedBox(
-              height: 20,
-              width: 20,
+          ? SizedBox(
+              height: 20.h,
+              width: 20.w,
               child: CircularProgressIndicator(strokeWidth: 2),
             )
           : Icon(Icons.logout_outlined, color: AppColors.redColor),

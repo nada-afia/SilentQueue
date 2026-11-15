@@ -35,6 +35,16 @@ class ProfileCubit extends Cubit<ProfileStates> {
   }
 
   void saveProfile(String name, String email) async {
+    final currentState = state;
+    File? currentImageFile;
+    String currentImageUrl =
+        'https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0=';
+
+    if (currentState is ProfileLoadedState) {
+      currentImageFile = currentState.imageFile;
+      currentImageUrl = currentState.profileImageUrl;
+    }
+
     emit(ProfileLoadingState());
     try {
       await firebaseDataSource.updateUserData(name: name, email: email);
@@ -44,7 +54,8 @@ class ProfileCubit extends Cubit<ProfileStates> {
           isEditing: false,
           name: name,
           email: email,
-          profileImageUrl: 'assets/images/Sarah Jenkins.png',
+          profileImageUrl: currentImageUrl,
+          imageFile: currentImageFile,
         ),
       );
     } catch (e) {

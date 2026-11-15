@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/support/widgets/asked_q_Item.dart';
 import 'package:grad_project/features/support/widgets/support_point.dart';
@@ -18,7 +19,7 @@ class SupportScreen extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -26,7 +27,7 @@ class SupportScreen extends StatelessWidget {
                 "Need assistance with your clinic queue or app features? We're here to help!",
                 style: AppStyles.black18SemiBold.copyWith(height: 1.5),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
 
               SupportPoint(
                 title: 'Live Queue Support',
@@ -37,15 +38,15 @@ class SupportScreen extends StatelessWidget {
                 description: 'For technical issues, feedback, or clinic partnerships, reach our support team at support@silentqueue.com or call our hotline at +20 123 456 7890.',
               ),
 
-              SizedBox(height: 12),
+              SizedBox(height: 12.h),
               Divider(),
-              SizedBox(height: 12),
+              SizedBox(height: 12.h),
 
               Text(
                 "Common FAQs",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
 
               AskedQItem(
                 question: 'How do I join a queue?',
