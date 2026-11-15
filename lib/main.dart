@@ -14,9 +14,9 @@ import 'package:grad_project/features/profile/profile_screen.dart';
 import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 import 'package:grad_project/features/splash/splash_screen.dart';
 import 'package:grad_project/firebase_options.dart';
-import 'package:grad_project/support/support_screen.dart';
 
 import 'features/home/home_navigation.dart';
+import 'features/support/support_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
