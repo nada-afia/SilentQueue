@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
@@ -137,21 +138,27 @@ class DoctorCard extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                vertical: 9,
-              ),
-              decoration: BoxDecoration(
-                color: AppColors.placeholderColor,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                'View Profile',
-                textAlign: TextAlign.center,
-                style: AppStyles.primaryBold12,
-              ),
-            ),
+SizedBox(
+  width: double.infinity,
+  child: TextButton(
+    onPressed: () {
+      Navigator.pushNamed(
+        context,
+        AppRoutes.bookAppointment,
+      );
+    },
+    style: TextButton.styleFrom(
+      backgroundColor: AppColors.placeholderColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+    child: Text(
+      'Book Appointment',
+      style: AppStyles.primaryBold12,
+    ),
+  ),
+),
           ],
         ),
       ),
