@@ -1,35 +1,43 @@
-
 import 'package:flutter/material.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
-
 class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key});
+  final String greeting;
+  final String name;
+
+  const HomeHeader({
+    super.key,
+    required this.greeting,
+    required this.name,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Good Morning 👋',
-              style: AppStyles.grayReg12,
-            ),
-            Text(
-              'Hello, Sarah!',
-              style: AppStyles.blackBold16,
-            ),
-          ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(greeting, style: AppStyles.grayReg12),
+              Text(
+                name.isEmpty ? 'Hello!' : 'Hello, $name!',
+                style: AppStyles.blackBold16,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
 
-        CircleAvatar(
+        const SizedBox(width: 10),
+
+        const CircleAvatar(
           radius: 18,
           backgroundColor: AppColors.primaryColor,
-          child: const Icon(
+          child: Icon(
             Icons.person,
             color: AppColors.whiteColor,
             size: 20,

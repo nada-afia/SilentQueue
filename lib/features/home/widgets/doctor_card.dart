@@ -1,30 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/core/widgets/doctor_avatar.dart';
+import 'package:grad_project/features/home/models/doctor_model.dart';
 
 class DoctorCard extends StatelessWidget {
-  final String initials;
-  final String name;
-  final String specialty;
-  final String clinic;
-  final double rating;
-  final int reviewsCount;
-  final String availability;
-  final int yearsExperience;
+  final DoctorModel doctor;
 
-  const DoctorCard({
-    super.key,
-    required this.initials,
-    required this.name,
-    required this.specialty,
-    required this.clinic,
-    required this.rating,
-    required this.reviewsCount,
-    required this.availability,
-    required this.yearsExperience,
-  });
+  const DoctorCard({super.key, required this.doctor});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +26,11 @@ class DoctorCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
-                  radius: 18,
-                  backgroundColor: AppColors.primaryColor,
-                  child: Text(
-                    initials,
-                    style: AppStyles.whiteSemiBold14,
-                  ),
+                DoctorAvatar(
+                  imageUrl: doctor.imageUrl,
+                  initials: doctor.initials,
+                  size: 44,
+                  radius: 22,
                 ),
 
                 const SizedBox(width: 8),
@@ -58,32 +40,27 @@ class DoctorCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        doctor.name,
                         style: AppStyles.blackBold12,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      Text(
-                        specialty,
-                        style: AppStyles.grayReg12,
-                      ),
+                      Text(doctor.specialty, style: AppStyles.grayReg12),
                     ],
                   ),
                 ),
 
-                const Icon(
-                  Icons.star,
-                  color: Colors.amber,
-                  size: 14,
-                ),
+                const Icon(Icons.star, color: Colors.amber, size: 14),
 
                 Text(
-                  rating.toString(),
+                  doctor.rating.toString(),
                   style: AppStyles.blackBold12,
                 ),
 
                 const SizedBox(width: 3),
 
                 Text(
-                  '($reviewsCount)',
+                  '(${doctor.reviewsCount})',
                   style: AppStyles.lightGrayReg14,
                 ),
               ],
@@ -101,9 +78,13 @@ class DoctorCard extends StatelessWidget {
 
                 const SizedBox(width: 5),
 
-                Text(
-                  clinic,
-                  style: AppStyles.grayReg12,
+                Expanded(
+                  child: Text(
+                    doctor.clinic,
+                    style: AppStyles.grayReg12,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ],
             ),
@@ -113,7 +94,6 @@ class DoctorCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-
                 Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -124,13 +104,13 @@ class DoctorCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6),
                   ),
                   child: Text(
-                    availability,
+                    doctor.availability,
                     style: AppStyles.greenReg12,
                   ),
                 ),
 
                 Text(
-                  '$yearsExperience years exp.',
+                  '${doctor.yearsExperience} years exp.',
                   style: AppStyles.lightGrayReg14,
                 ),
               ],
@@ -138,27 +118,28 @@ class DoctorCard extends StatelessWidget {
 
             const SizedBox(height: 10),
 
-SizedBox(
-  width: double.infinity,
-  child: TextButton(
-    onPressed: () {
-      Navigator.pushNamed(
-        context,
-        AppRoutes.bookAppointment,
-      );
-    },
-    style: TextButton.styleFrom(
-      backgroundColor: AppColors.placeholderColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-    child: Text(
-      'Book Appointment',
-      style: AppStyles.primaryBold12,
-    ),
-  ),
-),
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.bookAppointment,
+                    arguments: doctor,
+                  );
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.placeholderColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  'Book Appointment',
+                  style: AppStyles.primaryBold12,
+                ),
+              ),
+            ),
           ],
         ),
       ),
