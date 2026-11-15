@@ -3,8 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/core/widgets/doctor_avatar.dart';
 
 class AppointmentDoctorCard extends StatelessWidget {
+  final String imageUrl;
   final String initials;
   final String name;
   final String specialty;
@@ -12,6 +14,7 @@ class AppointmentDoctorCard extends StatelessWidget {
 
   const AppointmentDoctorCard({
     super.key,
+    required this.imageUrl,
     required this.initials,
     required this.name,
     required this.specialty,
@@ -22,15 +25,11 @@ class AppointmentDoctorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Container(
-          width: 55.w,
-          height: 55.w,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: AppColors.primaryColor,
-            borderRadius: BorderRadius.circular(12.r),
-          ),
-          child: Text(initials, style: AppStyles.whiteReg16),
+        DoctorAvatar(
+          imageUrl: imageUrl,
+          initials: initials,
+          size: 55.w,
+          radius: 12.r,
         ),
 
         SizedBox(width: 12.w),
