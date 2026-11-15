@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grad_project/core/style/app_styles.dart';
-import 'package:grad_project/support/widgets/asked_q_Item.dart';
-import 'package:grad_project/support/widgets/support_point.dart';
+import 'package:grad_project/features/support/widgets/asked_q_Item.dart';
+import 'package:grad_project/features/support/widgets/support_point.dart';
 
 class SupportScreen extends StatelessWidget {
   const SupportScreen({super.key});
