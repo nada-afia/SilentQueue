@@ -8,6 +8,7 @@ import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
 import 'package:grad_project/features/auth/signin/signin_screen.dart';
 import 'package:grad_project/features/auth/signup/cubit/signup_cubit.dart';
 import 'package:grad_project/features/auth/signup/signup_screen.dart';
+import 'package:grad_project/features/booking/book_appointment/book_appointment_screen.dart';
 import 'package:grad_project/features/onboarding/onboarding_screen.dart';
 import 'package:grad_project/features/privacy/privacy_screen.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
@@ -54,6 +55,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.profile: (context) => ProfileScreen(),
           AppRoutes.privacy: (context) => PrivacyScreen(),
           AppRoutes.support: (context) => SupportScreen(),
+          AppRoutes.bookAppointment: (context) => BookAppointmentScreen(),
         },
       ),
     );
