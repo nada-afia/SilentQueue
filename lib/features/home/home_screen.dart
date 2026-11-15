@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:grad_project/core/style/app_colors.dart';
-import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/home/section_header.dart';
 import 'package:grad_project/features/home/widgets/doctor_card.dart';
 import 'package:grad_project/features/home/widgets/home_header.dart';

@@ -15,7 +15,7 @@ class DialogHelper {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('OK', style: AppStyles.blackBold16),
+            child: Text('OK', style: AppStyles.blackBold16),
           ),
         ],
       ),
@@ -40,7 +40,7 @@ class DialogHelper {
               Navigator.of(context).pop();
               onOk?.call();
             },
-            child: const Text('OK', style: AppStyles.blackBold16),
+            child: Text('OK', style: AppStyles.blackBold16),
           ),
         ],
       ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/features/queue_details/widgets/app_bar_widget.dart';
-import 'package:grad_project/features/queue_details/widgets/auto_pharmacy_queue_card.dart';
 import 'package:grad_project/features/queue_details/widgets/back_to_home.dart';
 import 'package:grad_project/features/queue_details/widgets/patient_info.dart';
 import 'package:grad_project/features/queue_details/widgets/patient_ticket.dart';
@@ -17,7 +17,7 @@ class QueueDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 310,
+              height: 310.h,
               child: Stack(
                 clipBehavior: Clip.none,
                 children: [
@@ -34,7 +34,6 @@ class QueueDetailsScreen extends StatelessWidget {
             QrHeader(),
             QrScan(),
             PatientInfo(),
-            AutoPharmacyQueueCard(),
             BackToHome(),
           ],
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/appointments/widgets/queue_button.dart';
@@ -28,10 +29,10 @@ class VisitCard extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,8 +40,8 @@ class VisitCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  padding: EdgeInsets.all(8),
-                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(8.w),
+                  margin: EdgeInsets.all(8.w),
                   decoration: BoxDecoration(
                     color: AppColors.placeholderColor,
                     shape: BoxShape.circle,
@@ -55,7 +56,7 @@ class VisitCard extends StatelessWidget {
                       Row(
                         children: [
                           Text(date, style: AppStyles.blackReg12),
-                          SizedBox(width: 4),
+                          SizedBox(width: 4.w),
                           Text(status, style: AppStyles.primary13SemiBold),
                         ],
                       ),
@@ -65,16 +66,17 @@ class VisitCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                  padding: EdgeInsets.symmetric(
+                      horizontal: 16.w, vertical: 4.h),
                   decoration: BoxDecoration(
                     color: AppColors.placeholderColor,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.r),
                   ),
                   child: Text(id, style: AppStyles.blackReg12),
                 ),
               ],
             ),
-            SizedBox(height: 8),
+            SizedBox(height: 8.h),
             QueueButton(
               icon: Icons.replay,
               title: "Rebook Visit",

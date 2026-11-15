@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
@@ -11,7 +12,7 @@ class PatientTicket extends StatelessWidget {
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -22,8 +23,8 @@ class PatientTicket extends StatelessWidget {
                     color: Colors.grey.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
                   ),
-                  padding: EdgeInsets.all(16),
-                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(16.w),
+                  margin: EdgeInsets.all(8.w),
                   child: Icon(
                     Icons.medical_services_outlined,
                     color: AppColors.primaryColor,
@@ -33,7 +34,7 @@ class PatientTicket extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("Clinic Name", style: AppStyles.black18SemiBold),
-                    SizedBox(height: 7),
+                    SizedBox(height: 7.h),
                     Text(
                       "Registration time 1:15 PM",
                       style: AppStyles.grayReg14.copyWith(color: Colors.grey),
@@ -43,14 +44,14 @@ class PatientTicket extends StatelessWidget {
               ],
             ),
 
-            SizedBox(height: 7),
+            SizedBox(height: 7.h),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(7.r),
                 border: Border.all(color: Colors.grey),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.w),
                 child: Row(
                   children: [
                     Expanded(
@@ -65,7 +66,9 @@ class PatientTicket extends StatelessWidget {
                           ),
                           Text(
                             "Queue 8",
-                            style: AppStyles.blackBold16.copyWith(fontSize: 18),
+                            style: AppStyles.blackBold16.copyWith(
+                              fontSize: 18.sp,
+                            ),
                           ),
                         ],
                       ),
@@ -74,9 +77,9 @@ class PatientTicket extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color: AppColors.lightGreenColor,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(30.r),
                       ),
-                      padding: EdgeInsets.all(8),
+                      padding: EdgeInsets.all(8.w),
                       child: Text(
                         "Current Queue 2 of 17",
                         style: AppStyles.primaryReg12,
@@ -86,20 +89,20 @@ class PatientTicket extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 7),
+            SizedBox(height: 7.h),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [AppColors.primaryColor, AppColors.darkGreenColor],
                 ),
-                borderRadius: BorderRadius.circular(7),
+                borderRadius: BorderRadius.circular(7.r),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: EdgeInsets.all(8.w),
                 child: Row(
                   children: [
                     Icon(Icons.access_time, color: Colors.white),
-                    SizedBox(width: 3),
+                    SizedBox(width: 3.w),
                     Text("Your Turn at:", style: AppStyles.white13Medium),
                     Spacer(),
                     Text(

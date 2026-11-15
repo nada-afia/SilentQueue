@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
@@ -27,12 +28,13 @@ class ProfileOption extends StatelessWidget {
       child: ListTile(
         onTap: onTap,
         leading: Icon(leading, color: AppColors.darkGreenColor),
-        title: Text(title, style: AppStyles.blackReg12.copyWith(fontSize: 15)),
+        title: Text(
+            title, style: AppStyles.blackReg12.copyWith(fontSize: 15.sp)),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(trailingText ?? "", style: AppStyles.gray14Reg),
-            SizedBox(width: 4),
+            SizedBox(width: 4.w),
             Icon(trailing, size: trailingSize, color: AppColors.darkGreenColor),
           ],
         ),

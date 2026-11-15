@@ -6,6 +6,8 @@ class FirebaseDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // final FirebaseStorage _storage = FirebaseStorage.instance;
+
   Future<void> signUp(String email, String password, String name) async {
     try {
       UserCredential userCredential = await _auth
@@ -79,15 +81,24 @@ class FirebaseDataSource {
     }
   }
 
+  // Future<String> uploadProfileImage(File imageFile) async {
+  //   final uid = _auth.currentUser!.uid;
+  //   final ref = _storage.ref().child('profile_images/$uid.jpg');
+  //   await ref.putFile(imageFile);
+  //   return await ref.getDownloadURL();
+  // }
+
   Future<void> updateUserData({
     required String name,
     required String email,
+    // String? profileImageUrl,
   }) async {
     try {
       String uid = _auth.currentUser!.uid;
       await _firestore.collection('users').doc(uid).update({
         'fullName': name,
         'email': email,
+        // if (profileImageUrl != null) 'profileImageUrl': profileImageUrl,
       });
     } catch (e) {
       throw Exception('Failed to update user data: $e');

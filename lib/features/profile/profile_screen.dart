@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
@@ -35,7 +36,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         centerTitle: true,
         title: Text(
           "Profile",
-          style: AppStyles.black18SemiBold.copyWith(fontSize: 20),
+          style: AppStyles.black18SemiBold.copyWith(fontSize: 20.sp),
         ),
         actions: [
           BlocBuilder<ProfileCubit, ProfileStates>(
@@ -58,13 +59,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.w),
           child: Center(
             child: SingleChildScrollView(
               child: Column(
                 children: [
                   BlocConsumer<ProfileCubit, ProfileStates>(
                     listener: (context, state) {
+                      if (state is ProfileLoadedState && !state.isEditing) {
+                        nameController.text = state.name;
+                        emailController.text = state.email;
+                      }
+
                       if (state is ProfileErrorState) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text(state.errorMessage)),
@@ -76,21 +82,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         return const Center(child: CircularProgressIndicator());
                       }
                       if (state is ProfileLoadedState) {
-                        nameController.text = state.name;
-                        emailController.text = state.email;
                         return Column(
                           children: [
                             Stack(
                               alignment: Alignment.bottomRight,
                               children: [
                                 Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: EdgeInsets.all(8.w),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     shape: BoxShape.circle,
                                   ),
                                   child: CircleAvatar(
-                                    radius: 60,
+                                    radius: 60.r,
                                     backgroundImage: state.imageFile != null
                                         ? FileImage(state.imageFile!)
                                               as ImageProvider
@@ -104,9 +108,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
-                                      padding: const EdgeInsets.all(3.0),
+                                      padding: EdgeInsets.all(3.w),
                                       child: CircleAvatar(
-                                        radius: 20,
+                                        radius: 20.r,
                                         backgroundColor:
                                             AppColors.darkGreenColor,
                                         child: IconButton(
@@ -118,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           icon: Icon(
                                             Icons.camera_alt_outlined,
                                             color: Colors.white,
-                                            size: 18,
+                                            size: 18.sp,
                                           ),
                                         ),
                                       ),
@@ -128,8 +132,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             state.isEditing
                                 ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w,
                                     ),
                                     child: TextField(
                                       controller: nameController,
@@ -145,9 +149,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ),
                             state.isEditing
                                 ? Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 20,
-                                      vertical: 8,
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 20.w,
+                                      vertical: 8.h,
                                     ),
                                     child: TextField(
                                       controller: emailController,
@@ -165,11 +169,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       }
                     },
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: 60.h),
                   Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(20.r),
                     ),
                     child: Column(
                       children: [
@@ -205,7 +209,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 60),
+                  SizedBox(height: 60.h),
                   BlocConsumer<ProfileCubit, ProfileStates>(
                     listener: (context, state) {
                       if (state is ProfileSuccessState) {

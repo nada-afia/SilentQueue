@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/privacy/widgets/privacy_point.dart';
 
@@ -12,12 +13,12 @@ class PrivacyScreen extends StatelessWidget {
         centerTitle: true,
         title: Text(
           "Privacy & Security",
-          style: AppStyles.blackBold16.copyWith(fontSize: 20),
+          style: AppStyles.blackBold16.copyWith(fontSize: 20.sp),
         ),
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,7 +26,7 @@ class PrivacyScreen extends StatelessWidget {
                 'Silent Queue is built to protect your privacy while managing your clinic visit:',
                 style: AppStyles.black18SemiBold.copyWith(height: 1.5),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 20.h),
 
               PrivacyPoint(
                 title: 'Minimal Data',
