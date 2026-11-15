@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
+import 'package:grad_project/features/booking/common/widgets/doctor_profile_card.dart';
 import 'package:grad_project/features/booking/review_appointment/review_appointment_screen.dart';
 import 'package:grad_project/features/home/models/doctor_model.dart';
 import 'cubit/book_appointment_cubit.dart';
 import 'cubit/book_appointment_state.dart';
-import '../common/widgets/doctor_profile_card.dart';
 import 'widgets/doctor_stats.dart';
 import 'widgets/date_selection.dart';
 import 'widgets/available_time.dart';
@@ -130,6 +130,7 @@ class BookAppointmentView extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ReviewAppointmentScreen(
+                          doctor: cubit.doctor,
                           selectedDate: cubit.selectedDate,
                           selectedTime: cubit.selectedTime,
                         ),
