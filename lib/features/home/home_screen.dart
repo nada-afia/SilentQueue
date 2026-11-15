@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_project/core/style/app_colors.dart';
+import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/home/section_header.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
@@ -120,8 +121,8 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 if (cubit.doctors.isEmpty)
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
                     child: Center(
                       child: Text(
                         'No doctors found',
