@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "464891207034",
+    "project_id": "silent-queue-167ce",
+    "storage_bucket": "silent-queue-167ce.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:464891207034:android:cfa402d7220087b6b14ac3",
+        "android_client_info": {
+          "package_name": "com.example.grad_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGQc1ule5BWzKuiMn6xxzkEbeVO8Zf3kI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
