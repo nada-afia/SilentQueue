@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/core/widgets/doctor_avatar.dart';
 import 'package:grad_project/features/home/models/doctor_model.dart';
 
 class DoctorProfileCard extends StatelessWidget {
@@ -20,15 +21,11 @@ class DoctorProfileCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: 75.w,
-            height: 75.w,
-            alignment: Alignment.center,
-            decoration: BoxDecoration(
-              color: AppColors.primaryColor,
-              borderRadius: BorderRadius.circular(12.r),
-            ),
-            child: Text(doctor.initials, style: AppStyles.white24SemiBold),
+          DoctorAvatar(
+            imageUrl: doctor.imageUrl,
+            initials: doctor.initials,
+            size: 75.w,
+            radius: 12.r,
           ),
 
           SizedBox(width: 12.w),
