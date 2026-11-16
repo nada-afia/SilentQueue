@@ -17,12 +17,14 @@ class ReviewAppointmentScreen extends StatelessWidget {
   final DoctorModel doctor;
   final DateTime selectedDate;
   final String selectedTime;
+  final String? replaceId;
 
   const ReviewAppointmentScreen({
     super.key,
     required this.doctor,
     required this.selectedDate,
     required this.selectedTime,
+     this.replaceId,
   });
 
   @override
@@ -32,6 +34,7 @@ class ReviewAppointmentScreen extends StatelessWidget {
         doctor: doctor,
         selectedDate: selectedDate,
         selectedTime: selectedTime,
+        replaceId: replaceId,
       ),
       child: const ReviewAppointmentView(),
     );

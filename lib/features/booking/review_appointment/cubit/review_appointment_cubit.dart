@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grad_project/core/data_source.dart/firebase_data_source.dart';
 import 'package:grad_project/features/booking/data/booking_firebase_data_source.dart';
 import 'package:grad_project/features/booking/models/appointment_model.dart';
 import 'package:grad_project/features/home/models/doctor_model.dart';
@@ -9,10 +10,11 @@ class ReviewAppointmentCubit extends Cubit<ReviewAppointmentStates> {
     required this.doctor,
     required this.selectedDate,
     required this.selectedTime,
+    this.replaceId,
   }) : super(ReviewAppointmentInitialState());
-
+  final String? replaceId;
   final BookingFirebaseDataSource _dataSource = BookingFirebaseDataSource();
-
+  final FirebaseDataSource firebaseDataSource = FirebaseDataSource();
   final DoctorModel doctor;
 
   DateTime selectedDate;
@@ -84,10 +86,10 @@ class ReviewAppointmentCubit extends Cubit<ReviewAppointmentStates> {
         clinic: doctor.clinic,
         address: doctor.address,
         date: DateTime(
-          selectedDate.year,
+          selectedDate.year, 
           selectedDate.month,
-          selectedDate.day,
-        ),
+           selectedDate.day
+           ),
         time: selectedTime,
         consultationFee: consultationFee,
         bookingFee: bookingFee,
@@ -98,7 +100,11 @@ class ReviewAppointmentCubit extends Cubit<ReviewAppointmentStates> {
       );
 
       await _dataSource.saveAppointment(appointment);
-
+      if (replaceId != null) {
+        try {
+          await FirebaseDataSource().cancelAppointment(replaceId!);
+        } catch (_) {}
+      }
       emit(ReviewAppointmentSuccessState(appointment));
     } catch (e) {
       emit(ReviewAppointmentErrorState(e.toString()));

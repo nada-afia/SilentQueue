@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:grad_project/features/auth/models/user_model.dart';
+import 'package:grad_project/features/queue_details/models/appointment_model.dart';
 
 class FirebaseDataSource {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -70,29 +71,22 @@ class FirebaseDataSource {
     }
   }
 
-  Future<UserModel?> getUserData() async {
+  Future<UserModel?> getUserData({String? userId}) async {
     try {
-      String uid = _auth.currentUser!.uid;
+      String uid = userId ?? _auth.currentUser!.uid;
       DocumentSnapshot doc = await _firestore
           .collection('users')
           .doc(uid)
           .get();
 
-      if (doc.exists) {
+      if (doc.exists && doc.data() != null) {
         return UserModel.fromJson(doc.data() as Map<String, dynamic>);
       }
-      return null;
     } catch (e) {
-      throw Exception('Failed to fetch user data: $e');
+      print(e.toString());
     }
+    return null;
   }
-
-  // Future<String> uploadProfileImage(File imageFile) async {
-  //   final uid = _auth.currentUser!.uid;
-  //   final ref = _storage.ref().child('profile_images/$uid.jpg');
-  //   await ref.putFile(imageFile);
-  //   return await ref.getDownloadURL();
-  // }
 
   Future<void> updateUserData({
     required String name,
@@ -104,10 +98,72 @@ class FirebaseDataSource {
       await _firestore.collection('users').doc(uid).update({
         'fullName': name,
         'email': email,
-        // if (profileImageUrl != null) 'profileImageUrl': profileImageUrl,
       });
     } catch (e) {
       throw Exception('Failed to update user data: $e');
     }
+  }
+
+  Future<AppointmentModel> getAppointmentDetails(String bookingNumber) async {
+    try {
+      final querySnapshot = await _firestore
+          .collection('appointments')
+          .where("bookingNumber", isEqualTo: bookingNumber)
+          .get();
+
+      final docSnapshot = querySnapshot.docs.first;
+
+      AppointmentModel appointment = AppointmentModel.fromJson(
+        docSnapshot.data(),
+        docSnapshot.id,
+      );
+      return appointment;
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
+  }
+
+  Future<AppointmentModel?> getActiveAppointment() async {
+    try {
+      final uid = _auth.currentUser?.uid;
+      print('Current uid: $uid');
+      if (uid == null) return null;
+
+      final snapshot = await _firestore
+          .collection('appointments')
+          .where('userId', isEqualTo: uid)
+          .where('status', isEqualTo: 'upcoming')
+          .limit(1)
+          .get();
+
+      if (snapshot.docs.isEmpty) return null;
+      final doc = snapshot.docs.first;
+      AppointmentModel appointmentModel = AppointmentModel.fromJson(
+        doc.data(),
+        doc.id,
+      );
+      return appointmentModel;
+    } catch (e) {
+      print(e.toString());
+      rethrow;
+    }
+  }
+
+  Future<void> rescheduleAppointment(
+    String appointmentId,
+    DateTime newDate,
+    String newTime,
+  ) async {
+    await _firestore.collection('appointments').doc(appointmentId).update({
+      'date': Timestamp.fromDate(newDate),
+      'time': newTime,
+    });
+  }
+
+  Future<void> cancelAppointment(String appointmentId) async {
+    await _firestore.collection('appointments').doc(appointmentId).update({
+      'status': 'cancelled',
+    });
   }
 }

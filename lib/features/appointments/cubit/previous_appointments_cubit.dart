@@ -21,7 +21,19 @@ class PreviousAppointmentsCubit extends Cubit<PreviousAppointmentsState> {
     }
   }
 
-  Future<void> rebook(String doctorId) async {
+DateTime? rebookDate;
+  String? rebookTime;
+  String? rebookReplaceId;
+
+  Future<void> rebook(
+    String doctorId, {
+    DateTime? date,
+    String? time,
+    String? replaceId,
+  }) async {
+    rebookDate = date;
+    rebookTime = time;
+    rebookReplaceId = replaceId;
     emit(RebookLoading());
     try {
       final doctor = await _dataSource.getDoctorById(doctorId);

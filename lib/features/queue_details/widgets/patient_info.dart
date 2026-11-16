@@ -2,12 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/features/queue_details/models/appointment_model.dart';
+import 'package:intl/intl.dart';
 
 class PatientInfo extends StatelessWidget {
-  const PatientInfo({super.key});
+  final AppointmentModel appointment;
+  final String patientName;
+
+  const PatientInfo({
+    super.key,
+    required this.appointment,
+    required this.patientName,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final dateText = appointment.date != null
+        ? DateFormat('MMM dd, yyyy').format(appointment.date!.toDate())
+        : '--';
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -23,7 +36,7 @@ class PatientInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text("Patient Name", style: AppStyles.gray11Medium),
-                Text("Your Name", style: AppStyles.black13SemiBold),
+                Text(patientName, style: AppStyles.black13SemiBold),
               ],
             ),
             VerticalDivider(color: AppColors.lightGreenColor, thickness: 1),
@@ -39,7 +52,10 @@ class PatientInfo extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text("Reservation Date", style: AppStyles.gray11Medium),
-                Text("Sun 8, Nov 26", style: AppStyles.black13SemiBold),
+                Text(
+                  dateText,
+                  style: AppStyles.black13SemiBold,
+                ),
               ],
             ),
           ],

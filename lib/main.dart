@@ -57,12 +57,17 @@ class MyApp extends StatelessWidget {
           ),
           AppRoutes.onboarding: (_) => OnboardingScreen(),
           AppRoutes.home: (context) => const HomeNavigation(),
-          AppRoutes.queueDetails: (context) => QueueDetailsScreen(),
           AppRoutes.appointments: (_) => BlocProvider(
             create: (_) =>
                 PreviousAppointmentsCubit(BookingFirebaseDataSource())..load(),
             child: AppointmentsScreen(),
           ),
+          AppRoutes.queueDetails: (context) {
+            final args =
+                ModalRoute.of(context)!.settings.arguments
+                    as Map<String, dynamic>;
+            return QueueDetailsScreen(bookingNumber: args['bookingNumber']);
+          },
           AppRoutes.profile: (context) => ProfileScreen(),
           AppRoutes.privacy: (context) => PrivacyScreen(),
           AppRoutes.support: (context) => SupportScreen(),

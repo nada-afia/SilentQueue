@@ -18,10 +18,28 @@ class BookAppointmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final doctor = ModalRoute.of(context)!.settings.arguments as DoctorModel;
+    final args = ModalRoute.of(context)!.settings.arguments;
+
+    final DoctorModel doctor;
+    DateTime? date;
+    String? time;
+    String? replaceId;
+    if (args is Map) {
+      doctor = args['doctor'] as DoctorModel;
+      date = args['date'] as DateTime?;
+      time = args['time'] as String?;
+      replaceId = args['replaceId'] as String?;
+    } else {
+      doctor = args as DoctorModel;
+    }
 
     return BlocProvider(
-      create: (context) => BookAppointmentCubit(doctor: doctor),
+      create: (context) => BookAppointmentCubit(
+        doctor: doctor,
+        initialDate: date,
+        initialTime: time,
+        replaceId: replaceId,
+      ),
       child: const BookAppointmentView(),
     );
   }
