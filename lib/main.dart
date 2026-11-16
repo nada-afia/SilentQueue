@@ -9,6 +9,7 @@ import 'package:grad_project/features/auth/signin/signin_screen.dart';
 import 'package:grad_project/features/auth/signup/cubit/signup_cubit.dart';
 import 'package:grad_project/features/auth/signup/signup_screen.dart';
 import 'package:grad_project/features/booking/book_appointment/book_appointment_screen.dart';
+import 'package:grad_project/features/booking/review_appointment/review_appointment_screen.dart';
 import 'package:grad_project/features/onboarding/onboarding_screen.dart';
 import 'package:grad_project/features/privacy/privacy_screen.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
@@ -50,12 +51,21 @@ class MyApp extends StatelessWidget {
           ),
           AppRoutes.onboarding: (_) => OnboardingScreen(),
           AppRoutes.home: (context) => const HomeNavigation(),
-          AppRoutes.queueDetails: (context) => QueueDetailsScreen(),
+          AppRoutes.queueDetails: (context) {
+            final args =
+                ModalRoute.of(context)!.settings.arguments
+                    as Map<String, dynamic>;
+            return QueueDetailsScreen(bookingNumber: args['bookingNumber']);
+          },
           AppRoutes.appointments: (context) => AppointmentsScreen(),
           AppRoutes.profile: (context) => ProfileScreen(),
           AppRoutes.privacy: (context) => PrivacyScreen(),
           AppRoutes.support: (context) => SupportScreen(),
           AppRoutes.bookAppointment: (context) => BookAppointmentScreen(),
+          AppRoutes.reviewAppointment: (context) => ReviewAppointmentScreen(
+            selectedDate: DateTime.now(),
+            selectedTime: DateTime.now().toString().substring(0, 10),
+          ),
         },
       ),
     );

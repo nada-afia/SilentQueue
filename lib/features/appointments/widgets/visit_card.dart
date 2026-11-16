@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/appointments/widgets/queue_button.dart';
@@ -82,7 +83,9 @@ class VisitCard extends StatelessWidget {
               title: "Rebook Visit",
               background: AppColors.blueColor,
               foreground: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, AppRoutes.reviewAppointment);
+              },
             ),
           ],
         ),

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/home/home_screen.dart';
+
 import 'cubit/booking_confirmed_cubit.dart';
 import 'cubit/booking_confirmed_state.dart';
+import 'widgets/reminder_switch.dart';
 import 'widgets/success_header.dart';
 import 'widgets/upcoming_appointment_card.dart';
-import 'widgets/reminder_switch.dart';
 
 class BookingConfirmedScreen extends StatelessWidget {
   final DateTime selectedDate;
@@ -81,7 +83,9 @@ class BookingConfirmedView extends StatelessWidget {
                   CustomElevatedButton(
                     title: 'View Appointments',
                     showArrow: false,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.reviewAppointment);
+                    },
                   ),
 
                   SizedBox(height: 12.h),

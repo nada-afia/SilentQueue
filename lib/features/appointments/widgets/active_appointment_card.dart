@@ -1,14 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/appointments/widgets/queue_button.dart';
+import 'package:grad_project/features/queue_details/models/appointment_model.dart';
+import 'package:intl/intl.dart';
 
 class ActiveAppointmentCard extends StatelessWidget {
-  const ActiveAppointmentCard({super.key});
+  final AppointmentModel appointment;
+
+  const ActiveAppointmentCard({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
+    final date = appointment.date?.toDate();
+    final now = DateTime.now();
+    final isToday =
+        date != null &&
+        date.year == now.year &&
+        date.month == now.month &&
+        date.day == now.day;
+
+    final dayText = date == null
+        ? '--'
+        : isToday
+        ? 'Today'
+        : DateFormat('MMM dd').format(date);
+
     return Container(
       margin: EdgeInsets.symmetric(vertical: 16.h),
       decoration: BoxDecoration(
@@ -41,7 +60,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                       ),
                       SizedBox(width: 4.w),
                       Text(
-                        "Metro Health Center",
+                        appointment.clinic ?? '',
                         style: AppStyles.black13SemiBold,
                       ),
                       Spacer(),
@@ -52,7 +71,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15.r),
                         ),
                         child: Text(
-                          "#A-24",
+                          appointment.status ?? '',
                           style: TextStyle(
                             color: AppColors.darkGreenColor,
                             fontSize: 12.sp,
@@ -63,11 +82,11 @@ class ActiveAppointmentCard extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    "Dr. Emily Watson",
+                    appointment.doctorName ?? '',
                     style: AppStyles.black18SemiBold.copyWith(fontSize: 20.sp),
                   ),
                   Text(
-                    "Cardiology Consultation • Room 204",
+                    "${appointment.specialty} • ${appointment.address}",
                     style: AppStyles.blackReg12,
                   ),
                   Container(
@@ -88,7 +107,7 @@ class ActiveAppointmentCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Today at 10:30 AM",
+                              "$dayText at ${appointment.time ?? '--'}",
                               style: AppStyles.blackReg12,
                             ),
                             Text(
@@ -137,14 +156,27 @@ class ActiveAppointmentCard extends StatelessWidget {
                         title: "Track Queue",
                         foreground: Colors.white,
                         background: AppColors.darkGreenColor,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.queueDetails,
+                            arguments: {
+                              'bookingNumber': appointment.bookingNumber,
+                            },
+                          );
+                        },
                       ),
                       QueueButton(
                         icon: Icons.calendar_today,
                         title: "Reschedule",
                         foreground: AppColors.darkGreenColor,
                         background: Colors.white,
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.reviewAppointment,
+                          );
+                        },
                       ),
                     ],
                   ),

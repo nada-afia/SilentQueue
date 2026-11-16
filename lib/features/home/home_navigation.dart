@@ -5,7 +5,6 @@ import 'package:grad_project/features/appointments/appointments_screen.dart';
 import 'package:grad_project/features/home/home_screen.dart';
 import 'package:grad_project/features/profile/cubit/profile_cubit.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
-import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 
 class HomeNavigation extends StatefulWidget {
   const HomeNavigation({super.key});
@@ -20,7 +19,7 @@ class _HomeNavigationState extends State<HomeNavigation> {
   final List<Widget> _pages = [
     const HomeScreen(),
     AppointmentsScreen(),
-    QueueDetailsScreen(),
+    // QueueDetailsScreen(bookingNumber: '',),
     BlocProvider(create: (context) => ProfileCubit(), child: ProfileScreen()),
   ];
 
@@ -62,10 +61,10 @@ class _HomeNavigationState extends State<HomeNavigation> {
               icon: Icon(Icons.calendar_today_outlined),
               label: 'Appointments',
             ),
-            NavigationDestination(
-              icon: Icon(Icons.hourglass_bottom_outlined),
-              label: 'Queue',
-            ),
+            // NavigationDestination(
+            //   icon: Icon(Icons.hourglass_bottom_outlined),
+            //   label: 'Queue',
+            // ),
             NavigationDestination(
               icon: Icon(Icons.person_outline),
               label: 'Profile',

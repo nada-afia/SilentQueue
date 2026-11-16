@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
+import 'package:grad_project/features/queue_details/models/appointment_model.dart';
 
 class PatientTicket extends StatelessWidget {
-  const PatientTicket({super.key});
+  final AppointmentModel appointment;
+
+  const PatientTicket({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,13 @@ class PatientTicket extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Clinic Name", style: AppStyles.black18SemiBold),
+                    Text(
+                      appointment.clinic ?? "Clinic Name",
+                      style: AppStyles.black18SemiBold,
+                    ),
                     SizedBox(height: 7.h),
                     Text(
-                      "Registration time 1:15 PM",
+                      "Registration time ${appointment.time}",
                       style: AppStyles.grayReg14.copyWith(color: Colors.grey),
                     ),
                   ],
@@ -65,9 +71,9 @@ class PatientTicket extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Queue 8",
+                            appointment.bookingNumber.toString(),
                             style: AppStyles.blackBold16.copyWith(
-                              fontSize: 18.sp,
+                              fontSize: 14.sp,
                             ),
                           ),
                         ],
@@ -106,7 +112,7 @@ class PatientTicket extends StatelessWidget {
                     Text("Your Turn at:", style: AppStyles.white13Medium),
                     Spacer(),
                     Text(
-                      "02:15 PM",
+                      appointment.time.toString(),
                       style: AppStyles.whiteSemiBold14.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
