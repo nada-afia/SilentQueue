@@ -48,8 +48,6 @@ The interface adapts to different screen sizes and pixel densities, from small p
 ```
 lib/
 ├── core/        # constants, routing, utils, shared widgets
-├── api/         # data sources and Firebase services
-├── domain/      # entities and repositories
 └── features/    # UI screens and cubits (auth, home, booking, queue, appointments, profile)
 ```
 
