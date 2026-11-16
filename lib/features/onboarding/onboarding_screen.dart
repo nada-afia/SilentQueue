@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
+import 'package:grad_project/core/onboarding_helper.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 
@@ -45,8 +46,10 @@ class OnboardingScreen extends StatelessWidget {
 
               CustomElevatedButton(
                 title: 'Get Started',
-                onPressed: () {
-                  Navigator.pushNamed(context, AppRoutes.login);
+                onPressed: () async {
+                  await OnboardingHelper.setOnboardingSeen();
+                  if (!context.mounted) return;
+                  Navigator.pushReplacementNamed(context, AppRoutes.login);
                 },
               ),
             ],
