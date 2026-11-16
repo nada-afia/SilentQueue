@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/app_routes.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+  final bool hasSeenOnboarding;
+
+  const SplashScreen({super.key, required this.hasSeenOnboarding});
 
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -13,9 +15,13 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 4), () {
       if (!mounted) return;
-      Navigator.pushReplacementNamed(context, AppRoutes.onboarding);
+
+      Navigator.pushReplacementNamed(
+        context,
+        widget.hasSeenOnboarding ? AppRoutes.login : AppRoutes.onboarding,
+      );
     });
   }
 

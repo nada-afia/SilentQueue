@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/features/appointments/appointments_screen.dart';
+import 'package:grad_project/features/appointments/cubit/previous_appointments_cubit.dart';
+import 'package:grad_project/features/booking/data/booking_firebase_data_source.dart';
 import 'package:grad_project/features/home/home_screen.dart';
 import 'package:grad_project/features/profile/cubit/profile_cubit.dart';
 import 'package:grad_project/features/profile/profile_screen.dart';
-import 'package:grad_project/features/queue_details/queue_details_screen.dart';
 
 class HomeNavigation extends StatefulWidget {
   const HomeNavigation({super.key});
@@ -19,8 +20,11 @@ class _HomeNavigationState extends State<HomeNavigation> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    AppointmentsScreen(),
-    QueueDetailsScreen(),
+    BlocProvider(
+      create: (_) =>
+          PreviousAppointmentsCubit(BookingFirebaseDataSource())..load(),
+      child: AppointmentsScreen(),
+    ),
     BlocProvider(create: (context) => ProfileCubit(), child: ProfileScreen()),
   ];
 
@@ -62,10 +66,10 @@ class _HomeNavigationState extends State<HomeNavigation> {
               icon: Icon(Icons.calendar_today_outlined),
               label: 'Appointments',
             ),
-            NavigationDestination(
-              icon: Icon(Icons.hourglass_bottom_outlined),
-              label: 'Queue',
-            ),
+            // NavigationDestination(
+            //   icon: Icon(Icons.hourglass_bottom_outlined),
+            //   label: 'Queue',
+            // ),
             NavigationDestination(
               icon: Icon(Icons.person_outline),
               label: 'Profile',

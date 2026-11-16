@@ -7,6 +7,7 @@ import 'package:grad_project/features/booking/common/widgets/appointment_doctor_
 
 class UpcomingAppointmentCard extends StatelessWidget {
   final String bookingId;
+  final String imageUrl;
   final String initials;
   final String doctorName;
   final String specialty;
@@ -17,6 +18,7 @@ class UpcomingAppointmentCard extends StatelessWidget {
   const UpcomingAppointmentCard({
     super.key,
     required this.bookingId,
+    required this.imageUrl,
     required this.initials,
     required this.doctorName,
     required this.specialty,
@@ -104,6 +106,7 @@ class UpcomingAppointmentCard extends StatelessWidget {
           SizedBox(height: 16.h),
 
           AppointmentDoctorCard(
+            imageUrl: imageUrl,
             initials: initials,
             name: doctorName,
             specialty: specialty,

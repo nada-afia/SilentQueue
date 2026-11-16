@@ -4,10 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
+import 'package:grad_project/features/booking/common/widgets/doctor_profile_card.dart';
 import 'package:grad_project/features/booking/review_appointment/review_appointment_screen.dart';
+import 'package:grad_project/features/home/models/doctor_model.dart';
 import 'cubit/book_appointment_cubit.dart';
 import 'cubit/book_appointment_state.dart';
-import 'widgets/doctor_profile_card.dart';
 import 'widgets/doctor_stats.dart';
 import 'widgets/date_selection.dart';
 import 'widgets/available_time.dart';
@@ -17,8 +18,28 @@ class BookAppointmentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+
+    final DoctorModel doctor;
+    DateTime? date;
+    String? time;
+    String? replaceId;
+    if (args is Map) {
+      doctor = args['doctor'] as DoctorModel;
+      date = args['date'] as DateTime?;
+      time = args['time'] as String?;
+      replaceId = args['replaceId'] as String?;
+    } else {
+      doctor = args as DoctorModel;
+    }
+
     return BlocProvider(
-      create: (context) => BookAppointmentCubit(),
+      create: (context) => BookAppointmentCubit(
+        doctor: doctor,
+        initialDate: date,
+        initialTime: time,
+        replaceId: replaceId,
+      ),
       child: const BookAppointmentView(),
     );
   }
@@ -29,6 +50,8 @@ class BookAppointmentView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final doctor = context.read<BookAppointmentCubit>().doctor;
+
     return Scaffold(
       backgroundColor: AppColors.backgroundColor,
 
@@ -50,11 +73,15 @@ class BookAppointmentView extends StatelessWidget {
 
               SizedBox(height: 12.h),
 
-              const DoctorProfileCard(),
+              DoctorProfileCard(doctor: doctor),
 
               SizedBox(height: 12.h),
 
-              const DoctorStats(),
+              DoctorStats(
+                patients: doctor.patients,
+                experience: '${doctor.yearsExperience} yrs',
+                distance: doctor.distance,
+              ),
 
               SizedBox(height: 20.h),
 
@@ -62,12 +89,7 @@ class BookAppointmentView extends StatelessWidget {
 
               SizedBox(height: 8.h),
 
-              Text(
-                'Dr. Sarah Mitchell is a board-certified cardiologist '
-                'with extensive experience in treating heart conditions. '
-                'She provides personalized care for every patient.',
-                style: AppStyles.grayReg12,
-              ),
+              Text(doctor.about, style: AppStyles.grayReg12),
 
               SizedBox(height: 20.h),
 
@@ -81,6 +103,7 @@ class BookAppointmentView extends StatelessWidget {
               SizedBox(height: 22.h),
 
               AvailableTime(
+                times: doctor.availableTimes,
                 selectedTime: cubit.selectedTime,
                 onTimeSelected: (time) {
                   cubit.changeTime(time);
@@ -105,7 +128,10 @@ class BookAppointmentView extends StatelessWidget {
                 children: [
                   Text('Consultation Fee', style: AppStyles.grayReg12),
                   SizedBox(height: 2.h),
-                  Text('\$150', style: AppStyles.blackBold16),
+                  Text(
+                    '\$${doctor.consultationFee.toStringAsFixed(0)}',
+                    style: AppStyles.blackBold16,
+                  ),
                 ],
               ),
 
@@ -122,6 +148,7 @@ class BookAppointmentView extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) => ReviewAppointmentScreen(
+                          doctor: cubit.doctor,
                           selectedDate: cubit.selectedDate,
                           selectedTime: cubit.selectedTime,
                         ),

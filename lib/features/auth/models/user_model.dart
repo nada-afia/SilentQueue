@@ -1,13 +1,11 @@
 class UserModel {
   final String fullName;
   final String email;
-  final String password;
   final String? profileImageUrl;
 
   UserModel({
     required this.fullName,
     required this.email,
-    required this.password,
     this.profileImageUrl,
   });
 
@@ -15,7 +13,6 @@ class UserModel {
     return {
       'fullName': fullName,
       'email': email,
-      'password': password,
       'profileImageUrl': profileImageUrl,
     };
   }
@@ -24,7 +21,6 @@ class UserModel {
     return UserModel(
       fullName: json['fullName'],
       email: json['email'],
-      password: json['password'],
       profileImageUrl: json['profileImageUrl'],
     );
   }

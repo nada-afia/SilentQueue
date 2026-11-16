@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/features/home/section_header.dart';
+
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 import 'widgets/doctor_card.dart';
@@ -121,7 +122,7 @@ class HomeView extends StatelessWidget {
                 const SizedBox(height: 12),
 
                 if (cubit.doctors.isEmpty)
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.only(top: 20),
                     child: Center(
                       child: Text(

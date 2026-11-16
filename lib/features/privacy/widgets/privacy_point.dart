@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 
 class PrivacyPoint extends StatelessWidget {
@@ -14,7 +15,7 @@ class PrivacyPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: EdgeInsets.only(bottom: 16.h),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,6 +43,5 @@ class PrivacyPoint extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

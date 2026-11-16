@@ -9,7 +9,6 @@ import 'package:grad_project/core/validator_helper.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/auth/signin/cubit/signin_cubit.dart';
 import 'package:grad_project/features/auth/signin/cubit/states.dart';
-import 'package:grad_project/features/auth/widgets/custom_text_button.dart';
 import 'package:grad_project/features/auth/signin/widgets/security_badge.dart';
 import 'package:grad_project/features/auth/widgets/custom_build_footer.dart';
 import 'package:grad_project/features/auth/widgets/custom_text_form_field.dart';
@@ -84,15 +83,6 @@ class _SigninScreenState extends State<SigninScreen> {
                     ),
                     isPassword: true,
                   ),
-
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: CustomTextButton(
-                      title: 'Forgot Password?',
-                      onPressed: () {},
-                    ),
-                  ),
-
                   SizedBox(height: 24.h),
                   BlocListener<SigninCubit, SignInStates>(
                     listener: (context, state) {

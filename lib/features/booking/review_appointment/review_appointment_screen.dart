@@ -6,28 +6,35 @@ import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/booking/booking_confirmed/booking_confirmed_screen.dart';
 import 'package:grad_project/features/booking/common/widgets/appointment_doctor_card.dart';
+import 'package:grad_project/features/home/models/doctor_model.dart';
+
 import 'cubit/review_appointment_cubit.dart';
 import 'cubit/review_appointment_state.dart';
 import 'widgets/appointment_details.dart';
 import 'widgets/payment_summary.dart';
-import 'widgets/payment_method.dart';
 
 class ReviewAppointmentScreen extends StatelessWidget {
+  final DoctorModel doctor;
   final DateTime selectedDate;
   final String selectedTime;
+  final String? replaceId;
 
   const ReviewAppointmentScreen({
     super.key,
+    required this.doctor,
     required this.selectedDate,
     required this.selectedTime,
+     this.replaceId,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ReviewAppointmentCubit(
+        doctor: doctor,
         selectedDate: selectedDate,
         selectedTime: selectedTime,
+        replaceId: replaceId,
       ),
       child: const ReviewAppointmentView(),
     );
@@ -42,23 +49,18 @@ class ReviewAppointmentView extends StatelessWidget {
     return BlocConsumer<ReviewAppointmentCubit, ReviewAppointmentStates>(
       listener: (context, state) {
         if (state is ReviewAppointmentSuccessState) {
-          final cubit = context.read<ReviewAppointmentCubit>();
-
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => BookingConfirmedScreen(
-                selectedDate: cubit.selectedDate,
-                selectedTime: cubit.selectedTime,
-              ),
+              builder: (context) =>
+                  BookingConfirmedScreen(appointment: state.appointment),
             ),
           );
         }
 
         if (state is ReviewAppointmentErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
       },
       builder: (context, state) {
@@ -125,10 +127,11 @@ class ReviewAppointmentView extends StatelessWidget {
                     SizedBox(height: 16.h),
 
                     AppointmentDoctorCard(
-                      initials: cubit.doctorInitials,
-                      name: cubit.doctorName,
-                      specialty: cubit.specialty,
-                      hospital: cubit.hospital,
+                      imageUrl: cubit.doctor.imageUrl,
+                      initials: cubit.doctor.initials,
+                      name: cubit.doctor.name,
+                      specialty: cubit.doctor.specialty,
+                      hospital: cubit.doctor.clinic,
                     ),
                   ],
                 ),
@@ -139,8 +142,8 @@ class ReviewAppointmentView extends StatelessWidget {
               AppointmentDetails(
                 date: cubit.formattedDate,
                 time: cubit.selectedTime,
-                hospital: cubit.hospital,
-                address: cubit.address,
+                hospital: cubit.doctor.clinic,
+                address: cubit.doctor.address,
                 onEdit: () {
                   Navigator.pop(context);
                 },
@@ -155,34 +158,6 @@ class ReviewAppointmentView extends StatelessWidget {
                 discount: cubit.discount,
                 total: cubit.total,
               ),
-
-              SizedBox(height: 14.h),
-
-              const PaymentMethod(),
-
-              SizedBox(height: 16.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.lock_outline,
-                    size: 14.sp,
-                    color: AppColors.lightGrayColor,
-                  ),
-                  SizedBox(width: 6.w),
-                  Flexible(
-                    child: Text(
-                      'Secure payment powered by Stripe',
-                      style: AppStyles.gray11Medium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10.h),
             ],
           ),
 
@@ -193,9 +168,7 @@ class ReviewAppointmentView extends StatelessWidget {
               child: state is ReviewAppointmentLoadingState
                   ? SizedBox(
                       height: 48.h,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: const Center(child: CircularProgressIndicator()),
                     )
                   : CustomElevatedButton(
                       title: 'Confirm Appointment',

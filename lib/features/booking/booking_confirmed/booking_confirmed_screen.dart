@@ -1,33 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grad_project/core/app_routes.dart';
 import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
-import 'package:grad_project/features/home/home_screen.dart';
+import 'package:grad_project/features/booking/models/appointment_model.dart';
 import 'cubit/booking_confirmed_cubit.dart';
 import 'cubit/booking_confirmed_state.dart';
+import 'widgets/reminder_switch.dart';
 import 'widgets/success_header.dart';
 import 'widgets/upcoming_appointment_card.dart';
-import 'widgets/reminder_switch.dart';
 
 class BookingConfirmedScreen extends StatelessWidget {
-  final DateTime selectedDate;
-  final String selectedTime;
+  final AppointmentModel appointment;
 
-  const BookingConfirmedScreen({
-    super.key,
-    required this.selectedDate,
-    required this.selectedTime,
-  });
+  const BookingConfirmedScreen({super.key, required this.appointment});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BookingConfirmedCubit(
-        selectedDate: selectedDate,
-        selectedTime: selectedTime,
-      ),
+      create: (context) => BookingConfirmedCubit(appointment: appointment),
       child: const BookingConfirmedView(),
     );
   }
@@ -44,9 +37,16 @@ class BookingConfirmedView extends StatelessWidget {
         backgroundColor: AppColors.backgroundColor,
 
         body: SafeArea(
-          child: BlocBuilder<BookingConfirmedCubit, BookingConfirmedStates>(
+          child: BlocConsumer<BookingConfirmedCubit, BookingConfirmedStates>(
+            listener: (context, state) {
+              if (state is BookingConfirmedErrorState) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+            },
             builder: (context, state) {
               final cubit = context.read<BookingConfirmedCubit>();
+              final appointment = cubit.appointment;
 
               return ListView(
                 padding: EdgeInsets.all(16.r),
@@ -58,13 +58,14 @@ class BookingConfirmedView extends StatelessWidget {
                   SizedBox(height: 24.h),
 
                   UpcomingAppointmentCard(
-                    bookingId: cubit.bookingId,
-                    initials: cubit.doctorInitials,
-                    doctorName: cubit.doctorName,
-                    specialty: cubit.specialty,
-                    hospital: cubit.hospital,
+                    bookingId: appointment.bookingNumber,
+                    imageUrl: appointment.doctorImageUrl,
+                    initials: appointment.doctorInitials,
+                    doctorName: appointment.doctorName,
+                    specialty: appointment.specialty,
+                    hospital: appointment.clinic,
                     date: cubit.shortDate,
-                    time: cubit.selectedTime,
+                    time: appointment.time,
                   ),
 
                   SizedBox(height: 14.h),
@@ -81,7 +82,9 @@ class BookingConfirmedView extends StatelessWidget {
                   CustomElevatedButton(
                     title: 'View Appointments',
                     showArrow: false,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.appointments);
+                    },
                   ),
 
                   SizedBox(height: 12.h),
@@ -98,12 +101,10 @@ class BookingConfirmedView extends StatelessWidget {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.pushAndRemoveUntil(
+                        Navigator.pushNamedAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomeScreen(),
-                          ), 
-                          (route) => route.isFirst,
+                          AppRoutes.home,
+                          (route) => false,
                         );
                       },
                       child: Text(
