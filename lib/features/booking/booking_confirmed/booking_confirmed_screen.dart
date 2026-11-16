@@ -6,6 +6,7 @@ import 'package:grad_project/core/style/app_colors.dart';
 import 'package:grad_project/core/style/app_styles.dart';
 import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/booking/models/appointment_model.dart';
+
 import 'cubit/booking_confirmed_cubit.dart';
 import 'cubit/booking_confirmed_state.dart';
 import 'widgets/success_header.dart';
@@ -40,9 +41,8 @@ class BookingConfirmedView extends StatelessWidget {
           child: BlocConsumer<BookingConfirmedCubit, BookingConfirmedStates>(
             listener: (context, state) {
               if (state is BookingConfirmedErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.errorMessage)),
-                );
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
               }
             },
             builder: (context, state) {
@@ -83,7 +83,9 @@ class BookingConfirmedView extends StatelessWidget {
                   CustomElevatedButton(
                     title: 'View Appointments',
                     showArrow: false,
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, AppRoutes.appointments);
+                    },
                   ),
 
                   SizedBox(height: 12.h),

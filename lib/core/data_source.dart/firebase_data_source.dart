@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/widgets.dart';
 import 'package:grad_project/features/auth/models/user_model.dart';
 
 class FirebaseDataSource {
@@ -9,20 +10,13 @@ class FirebaseDataSource {
   // final FirebaseStorage _storage = FirebaseStorage.instance;
 
   Future<void> signUp(String email, String password, String name) async {
-    try {
-      UserCredential userCredential = await _auth
-          .createUserWithEmailAndPassword(email: email, password: password);
+    UserCredential cred;
 
-      await _firestore
-          .collection('users')
-          .doc(userCredential.user?.uid)
-          .set(
-            UserModel(
-              fullName: name,
-              email: email,
-              password: password,
-            ).toJson(),
-          );
+    try {
+      cred = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case 'email-already-in-use':
@@ -34,6 +28,18 @@ class FirebaseDataSource {
         default:
           throw Exception('Sign up failed, please try again');
       }
+    }
+
+    try {
+      await _firestore.collection('users').doc(cred.user!.uid).set({
+        'fullName': name,
+        'email': email,
+        'createdAt': FieldValue.serverTimestamp(),
+      });
+    } on FirebaseException catch (e) {
+      debugPrint('Firestore error: ${e.code} - ${e.message}');
+      await cred.user?.delete();
+      throw Exception('Could not save your profile, please try again');
     }
   }
 

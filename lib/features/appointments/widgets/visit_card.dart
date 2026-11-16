@@ -12,7 +12,7 @@ class VisitCard extends StatelessWidget {
   final String drName;
   final String id;
   final String specialization;
-
+  final VoidCallback onRebook;
   const VisitCard({
     super.key,
     required this.icon,
@@ -22,6 +22,7 @@ class VisitCard extends StatelessWidget {
     required this.drName,
     required this.id,
     required this.specialization,
+    required this.onRebook,
   });
 
   @override
@@ -67,7 +68,9 @@ class VisitCard extends StatelessWidget {
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
-                      horizontal: 16.w, vertical: 4.h),
+                    horizontal: 16.w,
+                    vertical: 4.h,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.placeholderColor,
                     borderRadius: BorderRadius.circular(30.r),
@@ -82,7 +85,7 @@ class VisitCard extends StatelessWidget {
               title: "Rebook Visit",
               background: AppColors.blueColor,
               foreground: Colors.white,
-              onPressed: () {},
+              onPressed: onRebook,
             ),
           ],
         ),

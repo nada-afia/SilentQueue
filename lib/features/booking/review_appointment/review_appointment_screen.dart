@@ -7,11 +7,11 @@ import 'package:grad_project/core/widgets/custom_elevated_button.dart';
 import 'package:grad_project/features/booking/booking_confirmed/booking_confirmed_screen.dart';
 import 'package:grad_project/features/booking/common/widgets/appointment_doctor_card.dart';
 import 'package:grad_project/features/home/models/doctor_model.dart';
+
 import 'cubit/review_appointment_cubit.dart';
 import 'cubit/review_appointment_state.dart';
 import 'widgets/appointment_details.dart';
 import 'widgets/payment_summary.dart';
-import 'widgets/payment_method.dart';
 
 class ReviewAppointmentScreen extends StatelessWidget {
   final DoctorModel doctor;
@@ -56,9 +56,8 @@ class ReviewAppointmentView extends StatelessWidget {
         }
 
         if (state is ReviewAppointmentErrorState) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage)),
-          );
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
         }
       },
       builder: (context, state) {
@@ -156,34 +155,6 @@ class ReviewAppointmentView extends StatelessWidget {
                 discount: cubit.discount,
                 total: cubit.total,
               ),
-
-              SizedBox(height: 14.h),
-
-              const PaymentMethod(),
-
-              SizedBox(height: 16.h),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(
-                    Icons.lock_outline,
-                    size: 14.sp,
-                    color: AppColors.lightGrayColor,
-                  ),
-                  SizedBox(width: 6.w),
-                  Flexible(
-                    child: Text(
-                      'Secure payment powered by Stripe',
-                      style: AppStyles.gray11Medium,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 10.h),
             ],
           ),
 
@@ -194,9 +165,7 @@ class ReviewAppointmentView extends StatelessWidget {
               child: state is ReviewAppointmentLoadingState
                   ? SizedBox(
                       height: 48.h,
-                      child: const Center(
-                        child: CircularProgressIndicator(),
-                      ),
+                      child: const Center(child: CircularProgressIndicator()),
                     )
                   : CustomElevatedButton(
                       title: 'Confirm Appointment',
